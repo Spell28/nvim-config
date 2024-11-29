@@ -40,6 +40,18 @@ map("n", "<leader>ld", function()
   vim.diagnostic.open_float()
 end, { desc = "Debug Continue" })
 
+map("n", "<C-t>", function()
+  require("plenary.reload").reload_module("minty.huefy")
+  require("minty.huefy").open()
+end, {})
+
+vim.keymap.set("n", "<RightMouse>", function()
+  vim.cmd.exec '"normal! \\<RightMouse>"'
+
+  local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+  require("menu").open(options, { mouse = true })
+end, {})
+
 
 -- Disable mappings
 nomap("n", "<leader>v") -- drop vertical terminal keys

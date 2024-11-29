@@ -1,5 +1,6 @@
 require "nvchad.options"
 
+local autocmd = vim.api.nvim_create_autocmd
 local o = vim.opt
 
 vim.cmd "set noswapfile"
@@ -56,19 +57,53 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
 })
 -- end Disabling statusline in nvdash buffer
 
+-- start fix padding
+
+autocmd("VimEnter", {
+  command = ":silent !kitty @ set-spacing padding=0 margin=0",
+})
+
+autocmd("VimLeavePre", {
+  command = ":silent !kitty @ set-spacing padding=20 margin=10",
+})
+
+-- end fix padding
+
+-- start restore cursor position
+
+autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    local line = vim.fn.line "'\""
+    if
+      line > 1
+      and line <= vim.fn.line "$"
+      and vim.bo.filetype ~= "commit"
+      and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
+    then
+      vim.cmd 'normal! g`"'
+    end
+  end,
+})
+
+-- end restore cursor position
+
+
 -- start Add mdx
-vim.filetype.add {
-  extension = {
-    mdx = "mdx",
-  },
-}
 
-local get_option = vim.filetype.get_option
-vim.filetype.get_option = function(filetype, option)
-  return option == "commentstring"
-    and require("ts_context_commentstring.internal").calculate_commentstring()
-    or get_option(filetype, option)
-end
+-- vim.filetype.add {
+--   extension = {
+--     mdx = "mdx",
+--   },
+-- }
+--
+-- local get_option = vim.filetype.get_option
+-- vim.filetype.get_option = function(filetype, option)
+--   return option == "commentstring"
+--     and require("ts_context_commentstring.internal").calculate_commentstring()
+--     or get_option(filetype, option)
+-- end
+--
+-- vim.treesitter.language.register("markdown", "mdx")
 
-vim.treesitter.language.register("markdown", "mdx")
 -- end Add mdx
