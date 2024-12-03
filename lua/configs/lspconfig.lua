@@ -1,37 +1,36 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
+local configs = require "nvchad.configs.lspconfig"
 
 local servers = {
-  "html",
-  "emmet_ls",
-  "cssls",
-  "eslint",
-  "astro",
-  "lua_ls",
-  "marksman",
-  "mdx_analyzer",
-  "stylelint_lsp",
-  "tailwindcss",
-  "ts_ls",
-  "bashls",
-  "prismals"
+  html = {},
+  emmet_ls = {},
+  cssls = {},
+  eslint = {},
+  astro = {},
+  lua_ls = {},
+  marksman = {},
+  mdx_analyzer = {},
+  stylelint_lsp = {},
+  tailwindcss = {},
+  ts_ls = {
+    commands = {
+      OrganizeImports = {
+        Organize_imports,
+        description = "Organize Imports"
+      }
+    }
+  },
+  bashls = {},
+  prismals = {},
 }
-local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
-end
+for name, opts in pairs(servers) do
+  opts.on_init = configs.on_init
+  opts.on_attach = configs.on_attach
+  opts.capabilities = configs.capabilities
 
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
+  require("lspconfig")[name].setup(opts)
+end

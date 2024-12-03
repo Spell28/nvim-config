@@ -7,6 +7,7 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jj", "<ESC>")
 map("n", "<leader>s", ":write! <CR>", {desc = "Save current file"})
 map("n", "<leader>q", ":qa! <CR>", {desc = "Quite from nvim"})
+map("n", "<leader>fl", ":OrganizeImports <CR>", {desc = "Organize imports"})
 map("v", ">", ">gv", {desc = "Indent right"})
 map("v", "<", "<gv", {desc = "Indent left"})
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected text down" })
@@ -32,7 +33,7 @@ map({ "n", "t" }, "<leader>\\", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm", size = 0.3 }
 end, { desc = "Terminal New horizontal term" })
 
-map("n", "<leader>fl", function()
+map("n", "<leader>fm", function()
   require("conform").format { async = true, lsp_fallback = true }
 end, { desc = "Format Files" })
 

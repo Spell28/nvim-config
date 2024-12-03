@@ -88,6 +88,16 @@ autocmd("BufReadPost", {
 
 -- end restore cursor position
 
+-- start organize imports command
+function Organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+-- end organize imports command
 
 -- start Add mdx
 

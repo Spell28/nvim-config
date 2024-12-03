@@ -66,27 +66,13 @@ return {
     end,
   },
 
-  -- {
-  --   "windwp/nvim-ts-autotag",
-  --   event = "BufReadPre",
-  --   config = function()
-  --     require("nvim-ts-autotag").setup()
-  --   end,
-  -- },
-
-
-
-
+  {
+    "windwp/nvim-ts-autotag",
+    event = "BufReadPre",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
 
   -- end Spell plugins
-
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
 }
