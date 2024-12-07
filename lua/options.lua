@@ -98,6 +98,14 @@ function Organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 -- end organize imports command
+-- start ts_context_commentstring
+local get_option = vim.filetype.get_option
+vim.filetype.get_option = function(filetype, option)
+  return option == "commentstring"
+    and require("ts_context_commentstring.internal").calculate_commentstring()
+    or get_option(filetype, option)
+end
+-- end ts_context_commentstring
 
 -- start Add mdx
 
