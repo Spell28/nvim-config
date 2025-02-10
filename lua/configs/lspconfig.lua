@@ -24,6 +24,7 @@ local servers = {
   },
   bashls = {},
   prismals = {},
+  pyright = {},
 }
 
 -- lsps with default config
