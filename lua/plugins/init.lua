@@ -48,6 +48,12 @@ return {
     end,
   },
 
+
+  {
+    "nanotee/zoxide.vim",
+    event = "BufEnter",
+  },
+
   {
     "Exafunction/codeium.vim",
     event = "BufEnter",
