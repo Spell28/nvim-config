@@ -17,22 +17,6 @@ map("v", "<", "<gv", { desc = "Indent left" })
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected text down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected text up" })
 
--- Прокрутка на начало файла с динамическим расчетом
-map(
-  "n",
-  "gg",
-  ':lua require("neoscroll").scroll(-2 * vim.api.nvim_buf_line_count(0), { move_cursor = true, duration = 0.5, easing = quadratic, info = { kind = "gg", winid = vim.api.nvim_get_current_win(), bufnr = vim.api.nvim_get_current_buf()} })<CR>',
-  { noremap = true, silent = true, desc = "Smooth scroll to the top" }
-)
-
--- Прокрутка в конец файла с динамическим расчетом
-map(
-  "n",
-  "G",
-  ':lua require("neoscroll").scroll(2 * vim.api.nvim_buf_line_count(0), { move_cursor = true, duration = 0.5, easing = quadratic, info = { kind = "G", winid = vim.api.nvim_get_current_win(), bufnr = vim.api.nvim_get_current_buf()} })<CR>',
-  { noremap = true, silent = true, desc = "Smooth scroll to the bottom" }
-)
-
 
 map("n", "gn", function()
   require("nvchad.tabufline").next()
